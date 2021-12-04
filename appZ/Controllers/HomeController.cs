@@ -1,4 +1,5 @@
 ﻿using appZ.Models;
+using appZ.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -13,6 +14,7 @@ namespace appZ.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
+
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
@@ -20,8 +22,10 @@ namespace appZ.Controllers
 
         public IActionResult Index()
         {
+            var model = new SubjectsCitiesViewModel();
             return View();
         }
+
 
         public IActionResult Privacy()
         {

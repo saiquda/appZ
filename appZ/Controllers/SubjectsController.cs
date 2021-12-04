@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using appZ.Models;
+using appZ.ViewModel;
 
 namespace appZ.Controllers
 {
@@ -22,6 +23,7 @@ namespace appZ.Controllers
         public async Task<IActionResult> Index()
         {
             var appZContext = _context.Subjects.Include(s => s.Country);
+            var model = new SubjectsCitiesViewModel();
             return View(await appZContext.ToListAsync());
         }
 
