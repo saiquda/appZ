@@ -10,28 +10,27 @@ using System.Threading.Tasks;
 
 namespace appZ.ViewComponents
 {
-    public class CitiesTable : ViewComponent
+    public class SubjectsTableViewComponent : ViewComponent
     {
-        public async Task<IViewComponentResult> InvokeAsync(IEnumerable<City> cities,int CityId)
+        public async Task<IViewComponentResult> InvokeAsync(IEnumerable<Subject> subjects)
         {
-            ViewBag.CurrentId = CityId;
-            return await Task.FromResult(View(cities));
+            return await Task.FromResult(View(subjects));
         }
-        //    public IViewComponentResult Invoke(List<City>Cities)
+        //    public IViewComponentResult Invoke(List<Subject> Subjects)
         //    {
         //        StringBuilder str = new StringBuilder();
         //        str.Append(@"<table class=""table"">
         //<thead>
         //    <tr>
         //        <th>
-        //            Город
+        //            Субьект
         //        </th>
         //    </tr>
         //</thead>
         //<tbody>");
-        //        foreach (var item in Cities)
+        //        foreach (var item in Subjects)
         //        {
-        //            str.Append(String.Format(@"<tr><th><a href = ""Home/Index?Id={0}"">{1}</a></th></tr>", item.SubjectId, item.Name));
+        //            str.Append(String.Format(@"<tr><th><a href = ""Index?Id={0}"">{1}</a></th></tr>",item.Id,item.Name));
         //        }
         //        str.Append(@"</tbody></table>");
         //        return new HtmlContentViewComponentResult(new HtmlString(str.ToString()));

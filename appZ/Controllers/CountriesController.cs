@@ -6,9 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using appZ.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace appZ.Controllers
 {
+    [Authorize]
     public class CountriesController : Controller
     {
         private readonly AppZContext _context;
@@ -24,23 +26,6 @@ namespace appZ.Controllers
             return View(await _context.Countries.ToListAsync());
         }
 
-        // GET: Countries/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var country = await _context.Countries
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (country == null)
-            {
-                return NotFound();
-            }
-
-            return View(country);
-        }
 
         // GET: Countries/Create
         public IActionResult Create()

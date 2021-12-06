@@ -7,9 +7,12 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using appZ.Models;
 using appZ.ViewModel;
+using Microsoft.AspNetCore.Authorization;
+using appZ.Extentions;
 
 namespace appZ.Controllers
 {
+    [Authorize]
     public class SubjectsController : Controller
     {
         private readonly AppZContext _context;
@@ -23,33 +26,14 @@ namespace appZ.Controllers
         public async Task<IActionResult> Index()
         {
             var appZContext = _context.Subjects.Include(s => s.Country);
-            var model = new SubjectsCitiesViewModel();
+            var model = new CountriesSubjectsCitiesViewModel();
             return View(await appZContext.ToListAsync());
-        }
-
-        // GET: Subjects/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var subject = await _context.Subjects
-                .Include(s => s.Country)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (subject == null)
-            {
-                return NotFound();
-            }
-
-            return View(subject);
         }
 
         // GET: Subjects/Create
         public IActionResult Create()
         {
-            ViewData["CountryId"] = new SelectList(_context.Countries, "Id", "Id");
+            ViewData["CountryNames"] = _context.Countries.ToSelectListItems(x => x.Id.ToString(), x => x.Name);
             return View();
         }
 
@@ -66,7 +50,7 @@ namespace appZ.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CountryId"] = new SelectList(_context.Countries, "Id", "Id", subject.CountryId);
+            ViewData["CountryNames"] = _context.Countries.ToSelectListItems(x => x.Id.ToString(), x => x.Name);
             return View(subject);
         }
 
@@ -83,7 +67,7 @@ namespace appZ.Controllers
             {
                 return NotFound();
             }
-            ViewData["CountryId"] = new SelectList(_context.Countries, "Id", "Id", subject.CountryId);
+            ViewData["CountryNames"] = _context.Countries.ToSelectListItems(x => x.Id.ToString(), x => x.Name);
             return View(subject);
         }
 
@@ -119,7 +103,7 @@ namespace appZ.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CountryId"] = new SelectList(_context.Countries, "Id", "Id", subject.CountryId);
+            ViewData["CountryNames"] = _context.Countries.ToSelectListItems(x => x.Id.ToString(), x => x.Name);
             return View(subject);
         }
 

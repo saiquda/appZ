@@ -12,24 +12,28 @@ namespace appZ.ViewComponents
 {
     public class CountriesTable : ViewComponent
     {
-        public IViewComponentResult Invoke(List<Country>Countries)
+        public async Task<IViewComponentResult> InvokeAsync(IEnumerable<Country> countries)
         {
-            StringBuilder str= new StringBuilder();
-            str.Append(@"<table class=""table"">
-    <thead>
-        <tr>
-            <th>
-                
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>");
-            foreach (var item in Countries)
-            {
-                str.Append(item);
-            }
-            return null;
+            return await Task.FromResult(View(countries));
         }
+        //    public IViewComponentResult Invoke(List<Country>Countries)
+        //    {
+        //        StringBuilder str= new StringBuilder();
+        //        str.Append(@"<table class=""table"">
+        //<thead>
+        //    <tr>
+        //        <th>
+
+        //        </th>
+        //        <th></th>
+        //    </tr>
+        //</thead>
+        //<tbody>");
+        //        foreach (var item in Countries)
+        //        {
+        //            str.Append(item);
+        //        }
+        //        return null;
+        //    }
     }
 }

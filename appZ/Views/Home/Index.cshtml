@@ -1,27 +1,28 @@
 ﻿@{
-
     ViewData["Title"] = "Home Page";
 }
-@model IEnumerable<appZ.Models.Subject>
+@model CountriesSubjectsCitiesViewModel
 <ul class="nav nav-tabs">
-    <li class="nav-item">
-        <a class="nav-link active" data-toggle="tab" href="#description">Описание</a>
+    @foreach (var item in Model.Countries)
+    {
+    <li class="nav-item" >
+        <a class = "nav-link"asp-controller="Home" asp-action="Index" asp-route-CountryId="@item.Id" >@item.Name</a>
     </li>
-    <li class="nav-item">
-        <a class="nav-link" data-toggle="tab" href="#characteristics">Характеристики</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" data-toggle="tab" href="#opinion">Отзывы</a>
-    </li>
+    }
 </ul>
+
 <div class="tab-content">
     <div class="tab-pane fade show active" id="description">
-        @await Component.InvokeAsync("SubjectsTable", new { Subjects = Model })
-    </div>
-    <div class="tab-pane fade" id="characteristics">
-        Характеристики товара...
-    </div>
-    <div class="tab-pane fade" id="opinion">
-        Отзывы...
+        <table class ="ttable" border="0" cellpadding="0" cellspacing="2">
+            <tr>
+                <td>
+                    @await Component.InvokeAsync("SubjectsTable",Model.Subjects)
+                </td>
+                <td>
+                    @await Component.InvokeAsync("CitiesTable",new { Model.Cities, ViewBag.CityId })
+                </td>
+            </tr>
+        </table>
     </div>
 </div>
+

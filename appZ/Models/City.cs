@@ -11,11 +11,12 @@ namespace appZ.Models
     {
         public int Id { get; set; }
 
-        [Display(Name = "Название")]
+        [Display(Name = "Город")]
         public string Name { get; set; }
-        
+        [Display(Name = "Субъект")]
         public int SubjectId { get; set; }
 
+        [Display(Name = "Субъект")]
         public Subject Subject { get; set; }
     }
 }

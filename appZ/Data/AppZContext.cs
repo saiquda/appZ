@@ -12,7 +12,7 @@ namespace appZ.Models
         public DbSet<Country> Countries { get; set; }
         public DbSet<Subject> Subjects { get; set; }
         public DbSet<City> Cities { get; set; }
-
+        public DbSet<User> Users { get; set; }
         public AppZContext(DbContextOptions<AppZContext> options)
             : base(options)
         {

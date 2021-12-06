@@ -6,9 +6,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using appZ.Models;
+using Microsoft.AspNetCore.Authorization;
+using appZ.Extentions;
 
 namespace appZ.Controllers
 {
+    [Authorize]
     public class CitiesController : Controller
     {
         private readonly AppZContext _context;
@@ -25,29 +28,10 @@ namespace appZ.Controllers
             return View(await appZContext.ToListAsync());
         }
 
-        // GET: Cities/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var city = await _context.Cities
-                .Include(c => c.Subject)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (city == null)
-            {
-                return NotFound();
-            }
-
-            return View(city);
-        }
-
         // GET: Cities/Create
         public IActionResult Create()
         {
-            ViewData["SubjectId"] = new SelectList(_context.Subjects, "Id", "Id");
+            ViewData["SubjectNames"] = _context.Subjects.ToSelectListItems(x => x.Id.ToString(), x => x.Name);
             return View();
         }
 
@@ -64,7 +48,7 @@ namespace appZ.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["SubjectId"] = new SelectList(_context.Subjects, "Id", "Id", city.SubjectId);
+            ViewData["SubjectNames"] = _context.Subjects.ToSelectListItems(x => x.Id.ToString(), x => x.Name);
             return View(city);
         }
 
@@ -81,7 +65,7 @@ namespace appZ.Controllers
             {
                 return NotFound();
             }
-            ViewData["SubjectId"] = new SelectList(_context.Subjects, "Id", "Id", city.SubjectId);
+            ViewData["SubjectNames"] = _context.Subjects.ToSelectListItems(x => x.Id.ToString(), x => x.Name);
             return View(city);
         }
 
@@ -117,7 +101,7 @@ namespace appZ.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["SubjectId"] = new SelectList(_context.Subjects, "Id", "Id", city.SubjectId);
+            ViewData["SubjectNames"] = _context.Subjects.ToSelectListItems(x => x.Id.ToString(), x => x.Name);
             return View(city);
         }
 
