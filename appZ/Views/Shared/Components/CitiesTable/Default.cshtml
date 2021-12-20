@@ -1,15 +1,14 @@
 ﻿@{
 }
 @model IEnumerable<City>
-<table class="table" border="0" cellpadding="0" cellspacing="2">
+<table class="table" border="0" cellpadding="0" cellspacing="2" id="cities-table">
     @foreach (var item in Model)
     {
         <tr>
             <td>
-                <a asp-controller="Home" asp-action="SaveCity" asp-route-CountryId="@item.Subject.CountryId" asp-route-SubjectId="@item.SubjectId" asp-route-CityId="@item.Id">@item.Name@if (item.Id == ViewBag.CurrentId){ <text> •</text>}</a>
+                <button class="city badge badge-light">@item.Name@if (item.Id == ViewBag.CurrentId){}</button>
+            </td>
 
-</td>
-
-</tr>
+        </tr>
     }
 </table>

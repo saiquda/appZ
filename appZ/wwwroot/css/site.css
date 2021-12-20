@@ -1,5 +1,5 @@
-﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-for details on configuring this project to bundle and minify static web assets. */
+﻿ Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. 
 
 a.navbar-brand {
   white-space: normal;
@@ -7,9 +7,10 @@ a.navbar-brand {
   word-break: break-all;
 }
 
-/* Provide sufficient contrast against white background */
+ Provide sufficient contrast against white background 
 a {
   color: #0366d6;
+  text-decoration: none;
 }
 
 .btn-primary {
@@ -24,8 +25,8 @@ a {
   border-color: #1861ac;
 }
 
-/* Sticky footer styles
--------------------------------------------------- */
+ Sticky footer styles
+-------------------------------------------------- 
 html {
   font-size: 14px;
 }
@@ -51,15 +52,15 @@ button.accept-policy {
   line-height: inherit;
 }
 
-/* Sticky footer styles
--------------------------------------------------- */
+ Sticky footer styles
+-------------------------------------------------- 
 html {
   position: relative;
   min-height: 100%;
 }
 
 body {
-  /* Margin bottom by footer height */
+   Margin bottom by footer height 
   margin-bottom: 60px;
 }
 .footer {
@@ -67,7 +68,7 @@ body {
   bottom: 0;
   width: 100%;
   white-space: nowrap;
-  line-height: 60px; /* Vertically center the text there */
+  line-height: 60px;  Vertically center the text there 
 }
 table td, table td * {
     vertical-align: top;
@@ -80,7 +81,7 @@ body {
     font-family: "Lato", sans-serif;
 }
 
-/* Style the tab */
+ Style the tab 
 .tab {
     float: left;
     border: 1px solid #ccc;
@@ -89,7 +90,7 @@ body {
     height: 300px;
 }
 
-    /* Style the buttons inside the tab */
+/*     Style the buttons inside the tab 
     .tab button {
         display: block;
         background-color: inherit;
@@ -104,17 +105,17 @@ body {
         font-size: 17px;
     }
 
-        /* Change background color of buttons on hover */
+         Change background color of buttons on hover 
         .tab button:hover {
             background-color: #ddd;
         }
 
-        /* Create an active/current "tab button" class */
+         Create an active/current "tab button" class 
         .tab button.active {
             background-color: #ccc;
         }
 
-/* Style the tab content */
+ Style the tab content 
 .tabcontent {
     float: left;
     padding: 0px 12px;
@@ -125,4 +126,4 @@ body {
 }
 ttable td, ttable td * {
     vertical-align: top;
-}
+}*/

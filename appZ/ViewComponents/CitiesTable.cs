@@ -1,4 +1,5 @@
 ﻿using appZ.Models;
+using appZ.Models.ViewModelBinding;
 using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ViewComponents;
@@ -12,10 +13,10 @@ namespace appZ.ViewComponents
 {
     public class CitiesTable : ViewComponent
     {
-        public async Task<IViewComponentResult> InvokeAsync(IEnumerable<City> cities,int CityId)
+        public async Task<IViewComponentResult> InvokeAsync(CitiesTableBinding model)
         {
-            ViewBag.CurrentId = CityId;
-            return await Task.FromResult(View(cities));
+            ViewBag.CurrentId = model.CityId;
+            return await Task.FromResult(View(model.Cities));
         }
         //    public IViewComponentResult Invoke(List<City>Cities)
         //    {

@@ -1,4 +1,5 @@
 ﻿using appZ.Models;
+using appZ.Models.ViewModelBinding;
 using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ViewComponents;
@@ -10,11 +11,11 @@ using System.Threading.Tasks;
 
 namespace appZ.ViewComponents
 {
-    public class SubjectsTableViewComponent : ViewComponent
+    public class SubjectsTable : ViewComponent
     {
-        public async Task<IViewComponentResult> InvokeAsync(IEnumerable<Subject> subjects)
+        public async Task<IViewComponentResult> InvokeAsync(SubjectsTableBinding subjects)
         {
-            return await Task.FromResult(View(subjects));
+            return await Task.FromResult(View(subjects.Subjects));
         }
         //    public IViewComponentResult Invoke(List<Subject> Subjects)
         //    {

@@ -1,13 +1,14 @@
 ﻿@{
 }
 @model IEnumerable<Subject>
-<table class="table" border="0" cellpadding="0" cellspacing="2">
+<table class="table" border="0" cellpadding="0" cellspacing="2" id="subjects-table">
     @foreach (var item in Model)
     {
         <tr>
             <td>
-                <a asp-controller="Home" asp-action="Index" asp-route-CountryId="@item.CountryId" asp-route-SubjectId="@item.Id">@item.Name</a>
+                <button class="subject"  data-SubjectId="@item.Id">@item.Name</button>
             </td>
         </tr>
     }
-    </table>
+</table>
+

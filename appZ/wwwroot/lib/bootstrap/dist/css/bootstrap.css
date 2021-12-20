@@ -152,13 +152,13 @@ sup {
   top: -.5em;
 }
 
-a {
+a:link {
   color: #007bff;
   text-decoration: none;
   background-color: transparent;
 }
 
-a:hover {
+a:visited {
   color: #0056b3;
   text-decoration: underline;
 }
