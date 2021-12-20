@@ -28,7 +28,7 @@
 </div>
 <script type="text/javascript">
     $(document).ready(function () {
-        $(".subject").click(function (event) {
+        $("table.ttable").on("click","button.subject",function (event) {
             $.ajax({
                 url: '@Url.Action("GetCities")' + '?SubjectId=' + event.target.dataset.subjectid,
                 type: "POST",
