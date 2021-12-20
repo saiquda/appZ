@@ -66,5 +66,10 @@
             $.cookie("SubjectId", event.target.dataset.subjectid);
             $.cookie("CountryId", event.target.dataset.countryid);
         })
+        var y = $.cookie("CityId");
+        (document).getElementById("city-" + y)
+        $(`*[data-CityId='${y}']`).addClass('active');
+        console.log(y);
     })
+
 </script>
