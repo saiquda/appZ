@@ -20,7 +20,7 @@
                     @await Component.InvokeAsync("SubjectsTable", Model.SubjectsBinding)
                 </td>
                 <td>
-                    @await Component.InvokeAsync("CitiesTable",Model.Binding)
+                        @await Component.InvokeAsync("CitiesTable", Model.Binding)
                 </td>
             </tr>
         </table>
@@ -28,13 +28,14 @@
 </div>
 <script type="text/javascript">
     $(document).ready(function () {
-        $("table.ttable").on("click","button.subject",function (event) {
+        $("table.ttable").on("click","button.subject", function (event) {
             $.ajax({
                 url: '@Url.Action("GetCities")' + '?SubjectId=' + event.target.dataset.subjectid,
                 type: "POST",
                 success: function (result) {
                     document.getElementById("cities-table").innerHTML = result;
                     console.log(result);
+                    $("#cities-table").show(200);
                     return false;
                 }
             });
@@ -46,11 +47,24 @@
                 url: '@Url.Action("GetSubjects")' + '?CountryId=' + event.target.dataset.countryid,
                 type: "POST",
                 success: function (result) {
+                    $('#cities-table').hide();
                     document.getElementById("subjects-table").innerHTML = result;
-                    consol.log(result);
                     return false;
                 }
             });
         });
     });
+    $(document).ready(function () {
+        $("table.ttable").on("click","button.city", function () {
+            $('button.city').removeClass('active');
+            $(this).addClass('active');
+        });
+    });
+    $(document).ready(function () {
+        $("table.ttable").on("click", "button.city", function (event) {
+            $.cookie("CityId", event.target.dataset.cityid);
+            $.cookie("SubjectId", event.target.dataset.subjectid);
+            $.cookie("CountryId", event.target.dataset.countryid);
+        })
+    })
 </script>

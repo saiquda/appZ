@@ -28,39 +28,6 @@ namespace appZ.Controllers
             int CityId = Convert.ToInt32(HttpContext.Request.Cookies["CityId"]);
             return CityId;
         }
-        //[HttpPost]
-        //public async Task<IActionResult> GetSubjects(int CountryId)
-        //{
-        //    SubjectsTableBinding model = new SubjectsTableBinding();
-
-        //    //var model = new CountriesSubjectsCitiesViewModel();
-        //    //var subjectsTable = new SubjectsTableBinding();
-        //    //_context.Countries.Load();
-        //    //_context.Subjects.Load();
-        //    //if (HttpContext.Request.Cookies.ContainsKey("CityId"))
-        //    //{
-        //    //    model.Binding.CityId = Convert.ToInt32(HttpContext.Request.Cookies["CityId"]);
-        //    //    model.SubjectsBinding.SubjectId = _context.Cities.Find(model.Binding.CityId).SubjectId;
-        //    //    if (!(_context.Subjects.Find(model.SubjectsBinding.SubjectId).CountryId == CountryId))
-        //    //        model.SubjectsBinding.SubjectId = _context.Subjects.FirstOrDefault(x => x.CountryId == CountryId).Id;
-        //    //}
-        //    //else
-        //    //    model.SubjectsBinding.SubjectId = _context.Subjects.FirstOrDefault(x => x.CountryId == CountryId).Id;
-        //    //model.SubjectsBinding.Subjects = await _context.Subjects.Where(x => x.CountryId == CountryId).ToListAsync();
-        //    //return View(model.Subjects);
-        //    int CityId = 0;
-        //    if (HttpContext.Request.Cookies.ContainsKey("CityId"))
-        //    {
-        //        CityId = Convert.ToInt32(HttpContext.Request.Cookies["CityId"]);
-        //        model.SubjectId = _context.Cities.Find(CityId).SubjectId;
-        //        if (!(_context.Subjects.Find(model.SubjectId).CountryId == CountryId))
-        //            model.SubjectId = _context.Subjects.FirstOrDefault(x => x.CountryId == CountryId).Id;
-        //    }
-        //    else
-        //        model.SubjectId = _context.Subjects.FirstOrDefault(x => x.CountryId == CountryId).Id;
-        //    model.Subjects = await _context.Subjects.Where(x => x.CountryId == CountryId).ToListAsync();
-        //    return View(model.Subjects);
-        //}
         [HttpPost]
         public async Task<IActionResult> GetCities(int SubjectId)
         {
@@ -129,37 +96,25 @@ namespace appZ.Controllers
             model.Binding.Cities = model.Cities;
             return View(model);
         }
+        [HttpPost]
         [ActionName("SaveCity")]
         public async Task<IActionResult> Index(int SubjectId, int CountryId, int CityId)
         {
             var model = new CountriesSubjectsCitiesViewModel();
+            model.Binding = new CitiesTableBinding();
+            model.SubjectsBinding = new SubjectsTableBinding();
             model.Countries = _context.Countries.ToList();
             model.Cities = await _context.Cities.Where(x => x.SubjectId == SubjectId).ToListAsync();
             model.Subjects = await _context.Subjects.Where(x => x.CountryId == CountryId).ToListAsync();
+            model.SubjectsBinding.Subjects = model.Subjects;
+            model.SubjectsBinding.SubjectId = SubjectId;
+            model.Binding.CityId = CityId;
+            model.Binding.Cities = model.Cities;
             HttpContext.Response.Cookies.Append("CityId", Convert.ToString(CityId));
             HttpContext.Response.Cookies.Append("SubjectId", Convert.ToString(SubjectId));
             HttpContext.Response.Cookies.Append("CountryId", Convert.ToString(CountryId));
             ViewBag.CityId = CityId;
             return View("Index", model);
         }
-        
-        //public async Task<IActionResult> Index()
-        //{
-        //    var model = new SubjectsCitiesViewModel();
-        //    return View(model);
-        //}
-
-        //[HttpPost]
-        //public async Task<IActionResult> Index(Subject Subject)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        _context.Add(Subject);
-        //        await _context.SaveChangesAsync();
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    return View();
-
-        //}
     }
 }

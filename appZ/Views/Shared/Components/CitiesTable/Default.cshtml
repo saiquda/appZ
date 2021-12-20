@@ -6,7 +6,7 @@
     {
         <tr>
             <td>
-                <button class="city badge badge-light">@item.Name@if (item.Id == ViewBag.CurrentId){}</button>
+                <button class="city" data-CountryId="@item.Subject.CountryId" data-SubjectId="@item.Subject.Id" data-CityId="@item.Id">@item.Name@if (item.Id == ViewBag.CurrentId){}</button>
             </td>
 
         </tr>
