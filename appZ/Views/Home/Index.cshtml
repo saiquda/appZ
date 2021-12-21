@@ -11,7 +11,7 @@
     </li>
     }
 </ul>
-<label>
+<label class="icon">
     <i class="fas fa-home"></i>
 </label>
 <label id="selected-city">
@@ -31,7 +31,7 @@
     </div>
 </div>
 <script type="text/javascript">
-    $(document).ready(function () {
+    function scriptGetCities() {
         $("table.ttable").on("click","a.subject", function (event) {
             $.ajax({
                 url: '@Url.Action("GetCities")' + '?SubjectId=' + event.target.dataset.subjectid,
@@ -46,8 +46,9 @@
             $('a.subject').removeClass('active');
             $(this).addClass('active');
         });
-    });
-    $(document).ready(function () {
+    }
+
+    function scriptGetSubjects() {
         $(".nav-link").click(function (event) {
             $.ajax({
                 url: '@Url.Action("GetSubjects")' + '?CountryId=' + event.target.dataset.countryid,
@@ -61,53 +62,52 @@
             $('.nav-link').removeClass('active');
             $(this).addClass('active');
         });
-    });
-    $(document).ready(function () {
-        $("table.ttable").on("click","a.city", function () {
+    }
+
+    function activeCity() {
+        $("table.ttable").on("click", "a.city", function () {
             $('a.city').removeClass('active');
             $(this).addClass('active');
         });
-    });
-    var current;
-    var current_text;
-    $(document).ready(function () {
+    }
 
+    var city = $.cookie("CityId");
+    var subject = $.cookie("SubjectId");
+    var country = $.cookie("CountryId");
+    var current = (document).getElementById("city-" + city);
+    var current_text;
+    if (current != null)
+        current_text = (document).getElementById("city-" + city).text;
+    function cookieLoad() {
+        $(`*[data-CityId='${city}']`).addClass('active');
+        $(`*[data-CityId='${city}']`).append("<i class=\"fas fa-home\"></i>");
+        $(`*[data-SubjectId='${subject}']`).addClass('active');
+        $(`*[data-CountryId='${country}']`).addClass('active');
+
+        (document).getElementById("selected-city").innerHTML += (document).getElementById("city-" + city).text;
+    }
+
+    function cookieGet() {
         $("table.ttable").on("click", "a.city", function (event) {
             $.cookie("CityId", event.target.dataset.cityid);
             $.cookie("SubjectId", event.target.dataset.subject);
             $.cookie("CountryId", event.target.dataset.country);
-            
+
             (document).getElementById("selected-city").innerHTML = event.target.text;
             if (current != null) {
-                /*current.innerHTML = "<i class=\"fas fa-car\"></i>";*/
                 current.innerHTML = (current_text + "<i class=\"fas fa-car\"></i>");
             }
-            (this).innerHTML = (event.target.text + "<i class=\"fas fa-car\"></i><i class=\"fas fa-home\"></i>");
+            (this).innerHTML = (event.target.text + "<i class=\"fas fa-car\"></i> <i class=\"fas fa-home\"></i>");
             current_text = (this).text;
             current = (this);
-            //var icon = "<i class=\"fas fa-home\"></i>";
-            //event.target.text += "<i class=\"fas fa-home\"></i>";
-            //console.log(event.target.text);
         })
+    }
 
-        var city = $.cookie("CityId");
-        var subject = $.cookie("SubjectId");
-        var country = $.cookie("CountryId");
-        /*(document).getElementById("city-" + city)*/
-        if (city != null) {
-            (document).getElementById("city-" + city).text += "<i class=\"fas fa-home\"></i>";
-            console.log($(`*[data-CityId='${city}']`));
-        }
-        $(`*[data-CityId='${city}']`).addClass('active');
-        
-        (document).getElementById("subject-" + subject)
-        $(`*[data-SubjectId='${subject}']`).addClass('active');
-
-        (document).getElementById("country-" + country)
-        $(`*[data-CountryId='${country}']`).addClass('active');
-        var selected = (document).getElementById("city-" + city);
-        
-        (document).getElementById("selected-city").innerHTML += selected.text;
+    $(document).ready(function () {
+        scriptGetCities();
+        scriptGetSubjects();
+        activeCity();
+        cookieGet();
+        cookieLoad();
     });
-
 </script>
