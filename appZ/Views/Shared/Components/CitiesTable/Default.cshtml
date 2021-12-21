@@ -6,9 +6,10 @@
     {
         <tr>
             <td>
-                <button class="city" data-CountryId="@item.Subject.CountryId" data-SubjectId="@item.Subject.Id" data-CityId="@item.Id">@item.Name@if (item.Id == ViewBag.CurrentId){}</button>
+                <a class="city e-icons" href=# data-Country="@item.Subject.CountryId" data-Subject="@item.Subject.Id" data-CityId="@item.Id" id="city-@item.Id">@item.Name@if (item.Id == ViewBag.CurrentId){}
+                    <i class="fas fa-car"></i>
+                </a>
             </td>
-
         </tr>
     }
 </table>

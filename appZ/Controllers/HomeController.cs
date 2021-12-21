@@ -98,21 +98,21 @@ namespace appZ.Controllers
         }
         [HttpPost]
         [ActionName("SaveCity")]
-        public async Task<IActionResult> Index(int SubjectId, int CountryId, int CityId)
+        public async Task<IActionResult> Index(int Subject, int Country, int CityId)
         {
             var model = new CountriesSubjectsCitiesViewModel();
             model.Binding = new CitiesTableBinding();
             model.SubjectsBinding = new SubjectsTableBinding();
             model.Countries = _context.Countries.ToList();
-            model.Cities = await _context.Cities.Where(x => x.SubjectId == SubjectId).ToListAsync();
-            model.Subjects = await _context.Subjects.Where(x => x.CountryId == CountryId).ToListAsync();
+            model.Cities = await _context.Cities.Where(x => x.SubjectId == Subject).ToListAsync();
+            model.Subjects = await _context.Subjects.Where(x => x.CountryId == Country).ToListAsync();
             model.SubjectsBinding.Subjects = model.Subjects;
-            model.SubjectsBinding.SubjectId = SubjectId;
+            model.SubjectsBinding.SubjectId = Subject;
             model.Binding.CityId = CityId;
             model.Binding.Cities = model.Cities;
             HttpContext.Response.Cookies.Append("CityId", Convert.ToString(CityId));
-            HttpContext.Response.Cookies.Append("SubjectId", Convert.ToString(SubjectId));
-            HttpContext.Response.Cookies.Append("CountryId", Convert.ToString(CountryId));
+            HttpContext.Response.Cookies.Append("SubjectId", Convert.ToString(Subject));
+            HttpContext.Response.Cookies.Append("CountryId", Convert.ToString(Country));
             ViewBag.CityId = CityId;
             return View("Index", model);
         }

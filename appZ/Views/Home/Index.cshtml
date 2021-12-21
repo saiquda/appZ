@@ -7,12 +7,16 @@
     @foreach (var item in Model.Countries)
     {
     <li class="nav-item">
-        <button class = "nav-link" @*asp-controller="Home" asp-action="Index" asp-route-CountryId="@item.Id"*@ data-CountryId="@item.Id">@item.Name</button>
+        <a class = "nav-link" href=# @*asp-controller="Home" asp-action="Index" asp-route-CountryId="@item.Id"*@ data-CountryId="@item.Id">@item.Name</a>
     </li>
     }
 </ul>
-
-<div class="tab-content">
+<label>
+    <i class="fas fa-home"></i>
+</label>
+<label id="selected-city">
+</label>
+<div class="tab-content myTabContent">
     <div class="tab-pane fade show active" id="description">
         <table class ="ttable" border="0" cellpadding="0" cellspacing="2" id="ttable">
             <tr>
@@ -20,7 +24,7 @@
                     @await Component.InvokeAsync("SubjectsTable", Model.SubjectsBinding)
                 </td>
                 <td>
-                        @await Component.InvokeAsync("CitiesTable", Model.Binding)
+                    @await Component.InvokeAsync("CitiesTable", Model.Binding)
                 </td>
             </tr>
         </table>
@@ -28,7 +32,7 @@
 </div>
 <script type="text/javascript">
     $(document).ready(function () {
-        $("table.ttable").on("click","button.subject", function (event) {
+        $("table.ttable").on("click","a.subject", function (event) {
             $.ajax({
                 url: '@Url.Action("GetCities")' + '?SubjectId=' + event.target.dataset.subjectid,
                 type: "POST",
@@ -39,6 +43,8 @@
                     return false;
                 }
             });
+            $('a.subject').removeClass('active');
+            $(this).addClass('active');
         });
     });
     $(document).ready(function () {
@@ -52,24 +58,56 @@
                     return false;
                 }
             });
-        });
-    });
-    $(document).ready(function () {
-        $("table.ttable").on("click","button.city", function () {
-            $('button.city').removeClass('active');
+            $('.nav-link').removeClass('active');
             $(this).addClass('active');
         });
     });
     $(document).ready(function () {
-        $("table.ttable").on("click", "button.city", function (event) {
+        $("table.ttable").on("click","a.city", function () {
+            $('a.city').removeClass('active');
+            $(this).addClass('active');
+        });
+    });
+    var current;
+    var current_text;
+    $(document).ready(function () {
+
+        $("table.ttable").on("click", "a.city", function (event) {
             $.cookie("CityId", event.target.dataset.cityid);
-            $.cookie("SubjectId", event.target.dataset.subjectid);
-            $.cookie("CountryId", event.target.dataset.countryid);
+            $.cookie("SubjectId", event.target.dataset.subject);
+            $.cookie("CountryId", event.target.dataset.country);
+            
+            (document).getElementById("selected-city").innerHTML = event.target.text;
+            if (current != null) {
+                /*current.innerHTML = "<i class=\"fas fa-car\"></i>";*/
+                current.innerHTML = (current_text + "<i class=\"fas fa-car\"></i>");
+            }
+            (this).innerHTML = (event.target.text + "<i class=\"fas fa-car\"></i><i class=\"fas fa-home\"></i>");
+            current_text = (this).text;
+            current = (this);
+            //var icon = "<i class=\"fas fa-home\"></i>";
+            //event.target.text += "<i class=\"fas fa-home\"></i>";
+            //console.log(event.target.text);
         })
-        var y = $.cookie("CityId");
-        (document).getElementById("city-" + y)
-        $(`*[data-CityId='${y}']`).addClass('active');
-        console.log(y);
-    })
+
+        var city = $.cookie("CityId");
+        var subject = $.cookie("SubjectId");
+        var country = $.cookie("CountryId");
+        /*(document).getElementById("city-" + city)*/
+        if (city != null) {
+            (document).getElementById("city-" + city).text += "<i class=\"fas fa-home\"></i>";
+            console.log($(`*[data-CityId='${city}']`));
+        }
+        $(`*[data-CityId='${city}']`).addClass('active');
+        
+        (document).getElementById("subject-" + subject)
+        $(`*[data-SubjectId='${subject}']`).addClass('active');
+
+        (document).getElementById("country-" + country)
+        $(`*[data-CountryId='${country}']`).addClass('active');
+        var selected = (document).getElementById("city-" + city);
+        
+        (document).getElementById("selected-city").innerHTML += selected.text;
+    });
 
 </script>

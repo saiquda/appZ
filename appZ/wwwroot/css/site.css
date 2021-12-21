@@ -90,6 +90,19 @@ body {
     width: 30%;
     height: 300px;
 }
+a{
+    color:black;
+}
 .city.active {
-    background-color: blue;
+    color: orange;
+    text-decoration: underline;
+    font-weight: bold;
+}
+.subject.active {
+    color: orange;
+    text-decoration: underline;
+    font-weight: bold;
+}
+a:hover{
+    color:black;
 }
